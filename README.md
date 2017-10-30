@@ -1,2 +1,3 @@
-# thesis-of-master
-Thesis for research project of master of IT, USYD
+# Thesis for Research Project of Master of IT, USYD
+
+This is the thesis repo for my research project in USYD, which is unforkable blockchain, red belly blockchain, and zero knowledge contingent proof.
