@@ -1,0 +1,141 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% LaTex Template for University Report/Paper
+% Version 1.0
+% Author: Lin Han
+% 08/Oct./2017
+%
+% This template is created based on one previous work from
+% http://www.LaTeXTemplates.com
+%
+% Original author:
+% WikiBooks (http://en.wikibooks.org/wiki/LaTeX/Title_Creation)
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+% 
+% Instructions for using this template:
+% This title page is capable of being compiled as is. This is not useful for 
+% including it in another document. To do this, you have two options: 
+%
+% 1) Copy/paste everything between \begin{document} and \end{document} 
+% starting at \begin{titlepage} and paste this into another LaTeX file where you 
+% want your title page.
+% OR
+% 2) Remove everything outside the \begin{titlepage} and \end{titlepage} and 
+% move this file to the same directory as the LaTeX file you wish to add it to. 
+% Then add \input{./title_page_1.tex} to your LaTeX file where you want your
+% title page.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\title{University Report/Paper Template}
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass[12pt]{article}
+\usepackage[english]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage[colorinlistoftodos]{todonotes}
+
+\begin{document}
+
+\begin{titlepage}
+
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}} % Defines a new command for the horizontal lines, change thickness here
+
+\center % Center everything on the page
+ 
+%----------------------------------------------------------------------------------------
+%	HEADING SECTIONS
+%----------------------------------------------------------------------------------------
+
+\textsc{\LARGE The University of Sydney}\\[1.5cm] % Name of your university/college
+\textsc{\Large School of Information Technology}\\[0.5cm] % Major heading such as course name
+\textsc{\large INFO5993 Research Methods - Assignment II}\\[0.5cm] % Minor heading such as course title
+
+%----------------------------------------------------------------------------------------
+%	TITLE SECTION
+%----------------------------------------------------------------------------------------
+
+\HRule \\[0.4cm]
+{ \huge \bfseries Outline of Research \\
+ Deploy Unforkable Blochain with Zero Knowledge Contingent Proof on Mobile Devices}\\[0.4cm] % Title of your document
+\HRule \\[1.5cm]
+ 
+%----------------------------------------------------------------------------------------
+%	AUTHOR SECTION
+%----------------------------------------------------------------------------------------
+
+\begin{minipage}{0.4\textwidth}
+\begin{flushleft} \large
+\emph{Author:}\\
+Lin \textsc{Han} % Your name
+\end{flushleft}
+\end{minipage}
+~
+\begin{minipage}{0.4\textwidth}
+\begin{flushright} \large
+\emph{Supervisor:} \\
+Dr. Vincent \textsc{Gramoli} % Supervisor's Name
+\end{flushright}
+\end{minipage}\\[2cm]
+
+% If you don't want a supervisor, uncomment the two lines below and remove the section above
+%\Large \emph{Author:}\\
+%John \textsc{Smith}\\[3cm] % Your name
+
+%----------------------------------------------------------------------------------------
+%	DATE SECTION
+%----------------------------------------------------------------------------------------
+
+{\large \today}\\[2cm] % Date, change the \today to a set date if you want to be precise
+
+%----------------------------------------------------------------------------------------
+%	LOGO SECTION
+%----------------------------------------------------------------------------------------
+
+% \includegraphics{logo.png}\\[1cm] % Include a department/university logo - this will require the graphicx package
+ 
+% %----------------------------------------------------------------------------------------
+
+% \vfill % Fill the rest of the page with whitespace
+
+\end{titlepage}
+
+% \tableofcontents
+% \vfill
+
+% \newpage
+
+
+% \begin{abstract}
+% Your abstract.
+% \end{abstract}
+
+\section{Introduction \& Motivation}
+
+With the dramatical popularity of cryptocurrencies all over the world, people give more concerns on the security and performance issues on blockchain technology. While several forms of blockchain are proven to be secured under most circumstances, possible attacks still arises. Gaps exists where newly developed unforkable blockchain and real-life application overlap. Deployment of unforkable blockchain enables the possibility to integrate the secured distributed system into trustless transactions. The \textit{Zero Knowledge Contingent Payments}, known as ZKCP, which enables a trustless transaction where neither payer or payee can cheat, is also another supplements to enhance the security of blockchain. Hence, its is of vital importance to explore to deploy unforkable blockchain onto mobile so that an evidence could be made to show a more reliable and efficient way to replace current cryptocurrencies' blockchain technology. 
+
+
+\section{Contributions}
+
+In this project, the aim is to explore how the unforkable blockchain, especially the Red Belly Blockchain in this case, can be deployed on mobile devices and whether Zero Knowledge Contingent Payments can be integrated into it without the support of scripting language.
+
+First of all, I will implement a Java version of client for the Red Belly Blockchain and to test the performance of it. After that, an Android version of client will be implemented which plays the role of a client with full functionalities including showing balance and history, proposing transaction, and multiple-servers connection. Further, a discussion and exploration on ZKCP on the Red Belly Blockchain will be given, the performance, namely the speed of transaction, will be measured.
+
+\section{Methodology}
+
+I intend to further implement the existing code base of Red Belly Blockchain to fully interact with remote procedural call. In particular, it should be able to establish secured chanel between the Golang server and Java/Android client.
+
+Then a full implementation of client in Java and Android will be written. The client should have functions including showing balance, showing history, and proposing transactions. I will also make the client to allow dynamic settings including servers/DNS servers addresses, account import, encryption.
+
+At the end, after the client is implemented and tested to be compatible with Red Belly Blockchain, I intend to explore the possibility of Zero Knowledge Contingent Payments without scripting language. The speed of transaction will be given if the attempt succeeds.
+
+\section{Conclusion}
+
+Unforkable blockchain has given enough theoretical proof on the advances in security and performance compared to the traditional blockchain technology. With the possibility of deploying it on mobile with ZKCP enabled, people could easily make trustless transactions even without third-party involved in.
+
+\end{document}
