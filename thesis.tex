@@ -1,4 +1,4 @@
-\title{Unforkable blockchain cryptocurrencies with efficient zero knowledge contingent proof on mobile devices}
+\title{Unforkable blockchain with efficient zero knowledge contingent payments on mobile devices}
 %----------------------------------------------------------------------------------------
 %	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
 %----------------------------------------------------------------------------------------
@@ -26,14 +26,14 @@
 
 \textsc{\LARGE The University of Sydney}\\[1.5cm] % Name of your university/college
 \textsc{\Large School of Information Technology}\\[0.5cm] % Major heading such as course name
-\textsc{\large INFO5993 Research Methods - Assignment II}\\[0.5cm] % Minor heading such as course title
+\textsc{\large Thesis of Master of IT}\\[0.5cm] % Minor heading such as course title
 
 %----------------------------------------------------------------------------------------
 %	TITLE SECTION
 %----------------------------------------------------------------------------------------
 
 \HRule \\[0.6cm]
-{ \huge \bfseries Unforkable Blockchain Cryptocurrencies with Efficient Zero Knowledge Contingent Proof on Mobile Devices}\\[0.4cm] % Title of your document
+{ \huge \bfseries Unforkable blockchain with efficient zero knowledge contingent payments on mobile devices}\\[0.4cm] % Title of your document
 \HRule \\[1.6cm]
  
 %----------------------------------------------------------------------------------------
@@ -83,14 +83,22 @@ Dr. Vincent \textsc{Gramoli} % Supervisor's Name
 
 \section{Introduction}
 
-From the time when Block 0 of the Bitcoin blockchain, the Genesis Block, is created at 18:15:05 GMT on January 3rd, 2009, the words ``cryptocurrencies'' and ``Blockchain'' become one of the most popular fields in information technology. The ``decentralized'' and ``anonymous'' nature of cryptocurrencies overcomes the weakness of traditional \textit{trust-based} electronic payments who relies heavily on trusted third-party financial institutions. The \textit{cryptographic proof-of-work} of bitcoin enables reliable transaction between  two parties directly\cite{nakamoto2008bitcoin}. Through almost 10 years development, cryptocurrencies turns out to be a large family and can be deployed onto multiple devices. 
+% context part, introduction to cryptocurrencies
+From the time when Block 0 of Bitcoin blockchain, the Genesis Block, is created at 18:15:05 GMT on January 3rd, 2009, the words ``cryptocurrencies'' and ``Blockchain'' become one of the most popular topics in information technology fields. The ``decentralized'' and ``anonymous'' nature of cryptocurrencies overcomes the weakness of traditional \textit{trust-based} electronic payments who relies heavily on trusted third-party financial institutions. The \textit{cryptographic proof-of-work} of bitcoin enables reliable transaction between two parties directly\cite{nakamoto2008bitcoin}. Through almost 10 years development, cryptocurrencies turns out to be a large family and can be accessed via desktop, laptop, or even mobile devices like smart phones.
 
-Though bitcoin give a great solution on \textit{double spending} problem, it doesn't mean that it is secured in all aspects. One possible issue is attacks targeting blockchain's forkable feature. Other cryptocurrencies allowing forkable chains all suffer from the very same issue. In this sense, unfokable blockchain is proven to solve this problem\cite{DBLP:journals/corr/CrainGLR17}. On the other hand, another possible solution to secure transaction is to adopt mechanism like \textit{zero knowledge contingent payment} which are released if and only if some knowledge is disclosed by the payee and to do this in a trustless manner where neither the payer or payee can cheat\cite{wiki2011zero}\cite{sasson2014zerocash}. Whilst there are several theoretical discussion and practice in a variety of contexts, this paper will concentrate on their application on cryptocurrencies blockchain, especially on mobile devices. 
+% Problem
+Though bitcoin gives a practical solution on traditional \textit{double spending} problem in digital currencies, this doesn't mean that it is secure in all aspects. One possible issue is bitcoin blockchain's forkable feature. Actually, other cryptocurrencies allowing forkable chains all suffer from the very same issue. In this sense, unfokable blockchain is proven to overcome this shortcomming\cite{DBLP:journals/corr/CrainGLR17}. To consider in another aspect, another possible solution to secure transaction is to adopt mechanism like \textit{zero knowledge contingent payment} which are released if and only if some knowledge is disclosed by the payee and to do this in a trustless manner where neither the payer or payee can cheat\cite{wiki2011zero}\cite{sasson2014zerocash}. Whilst there are several theoretical discussion and practices in a variety of contexts, this paper will concentrate on how to deploy unforkable blockchain on mobile devices, specifically Android smart phone, and how to integrate zero knowledge contingent payments into it. 
 
-\section{Bitcoin}
-\label{sec:Blockchain}
+% TODO: contributions
 
-\subsection{Blockchain}
+
+% TODO: Roadmap
+
+\section{Literature Review}
+\label{sec:Literature Review}
+
+\subsection{Bitcoin}
+\subsubsection{Blockchain}
 
 Blockchain is the way how Bitcoin keeps its public ledger. To some extent, blockchain is simply a peer-to-peer distributed timestamp server. The ultimate goal of this design is to solve \textit{double-spending} problems and prevent modification of transaction records\cite{nakamoto2008bitcoin}. 
 
@@ -105,21 +113,21 @@ Each full node in the Bitcoin network keeps a full copy of the blockchain, in wh
 
 However, computing a hash is expensive. This truth enables the adoption of \textit{proof-of-work} in bitcoin network. 
 
-\subsection{Proof of Work}
+\subsubsection{Proof of Work}
 
 According to blockchains' feature, a huge amount of computation is required in the generation of each block. Meanwhile, there is a \textit{proof-of-work} mechanism to make the distributed timestamp server work and determine representation in majority decision making. Especially, when there are multiple chains (forked chains), consensus rules will pick up the longest chain, which contains the most proof of work during its generation\cite{nakamoto2008bitcoin}.
 
 In this way, any malicious changes on previous blocks would violate its following blocks. That is to say, hacker with huge computing power can hijack the blockchain if he can generate the longest chain from the block he hacks, in turn, he has to own more than half of the computing power within the whole blockchain network\cite{NG17}.
 
-\subsection{Contracts}
+\subsubsection{Contracts}
 
 There are distributed contracts in Bitcoin transactions for agreement enforcements, which provides another way to formalize and guarantee agreements rather than traditional court system. Examples include Escrow, Micropayment channels and CoinJoin.
 
 Some of the contracts can be implemented in Bitcoin Script, especially the zero knowledge contingent payments in Bitcoin is achieved using it. However the Red Belly Blockchain doesn't have a robust script language like Bitcoin does.
 
-\section{Ethereum}
+\subsection{Ethereum}
 
-\subsection{Previous Work}
+\subsubsection{Previous Work}
 
 Bitcoin provides a protocol allowing weak implementation of \textit{smart contracts}. However, several limitations exists in Bitcoin's scripting language:
 
@@ -130,7 +138,7 @@ Bitcoin provides a protocol allowing weak implementation of \textit{smart contra
     \item \textbf{Blindness of Value} - Bitcoin either consumes the entire UTXO or none of it
 \end{enumerate}
 
-\subsection{Rationale}
+\subsubsection{Rationale}
 
 Ethereum implements a blockchain with Turing-complete scripts, states, value awareness and blockchain awareness, which enables development of smart contracts, and even new protocols\cite{wood2014ethereum}.
 
