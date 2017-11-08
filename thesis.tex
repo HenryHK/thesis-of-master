@@ -1,4 +1,4 @@
-\title{Unforkable blockchain with efficient zero knowledge contingent payments on mobile devices}
+\title{Secure unforkable blockchain wallet}
 %----------------------------------------------------------------------------------------
 %	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
 %----------------------------------------------------------------------------------------
@@ -33,7 +33,7 @@
 %----------------------------------------------------------------------------------------
 
 \HRule \\[0.6cm]
-{ \huge \bfseries Unforkable blockchain with efficient zero knowledge contingent payments on mobile devices}\\[0.4cm] % Title of your document
+{ \huge \bfseries Secure Unforkable Blockchain Wallet}\\[0.4cm] % Title of your document
 \HRule \\[1.6cm]
  
 %----------------------------------------------------------------------------------------
@@ -87,20 +87,27 @@ Dr. Vincent \textsc{Gramoli} % Supervisor's Name
 From the time when Block 0 of Bitcoin blockchain, the Genesis Block, is created at 18:15:05 GMT on January 3rd, 2009, the words ``cryptocurrencies'' and ``Blockchain'' become one of the most popular topics in information technology fields. The ``decentralized'' and ``anonymous'' nature of cryptocurrencies overcomes the weakness of traditional \textit{trust-based} electronic payments who relies heavily on trusted third-party financial institutions. The \textit{cryptographic proof-of-work} of bitcoin enables reliable transaction between two parties directly\cite{nakamoto2008bitcoin}. Through almost 10 years development, cryptocurrencies turns out to be a large family and can be accessed via desktop, laptop, or even mobile devices like smart phones.
 
 % Problem
-Though bitcoin gives a practical solution on traditional \textit{double spending} problem in digital currencies, this doesn't mean that it is secure in all aspects. One possible issue is bitcoin blockchain's forkable feature. Actually, other cryptocurrencies allowing forkable chains all suffer from the very same issue. In this sense, unfokable blockchain is proven to overcome this shortcomming\cite{DBLP:journals/corr/CrainGLR17}. To consider in another aspect, another possible solution to secure transaction is to adopt mechanism like \textit{zero knowledge contingent payment} which are released if and only if some knowledge is disclosed by the payee and to do this in a trustless manner where neither the payer or payee can cheat\cite{wiki2011zero}\cite{sasson2014zerocash}. Whilst there are several theoretical discussion and practices in a variety of contexts, this paper will concentrate on how to deploy unforkable blockchain on mobile devices, specifically Android smart phone, and how to integrate zero knowledge contingent payments into it. 
+Though bitcoin gives a practical solution on traditional \textit{double spending} problem in digital currencies, this doesn't mean that it is secure in all aspects. One possible issue is bitcoin blockchain's forkable feature. Actually, other cryptocurrencies allowing forkable chains all suffer from the very same issue. In this sense, unfokable blockchain is proven to overcome this shortcomming\cite{DBLP:journals/corr/CrainGLR17}. To consider in another aspect, another possible solution to secure transaction is to adopt mechanism like \textit{zero knowledge contingent payment} which are released if and only if some knowledge is disclosed by the payee and to do this in a trustless manner where neither the payer or payee can cheat\cite{wiki2011zero}\cite{sasson2014zerocash}. Whilst there are several theoretical discussion and practices in a variety of contexts, this paper will concentrate on how to develop a secure cryptocurrency wallet on the basis of unforkable blockchain and zero knowledge contingent payments. 
 
-% TODO: contributions
+% Contributions
+In this project, I intend to contribute in two separated directions: one is to develop a mobile client for Red Belly Blockchain - a practice to deploy unforkable blockchain onto modern mobile devices; the other is to explore the way to enable zero knowledge contingent payments within Red Belly Blockchain network. The primary goal of this research is to examine the feasibility of real-life secure application for unforkable blockchain like Red Belly Blockchain.
 
+% Roadmap
+In the following report, related works will be given first. Essential concepts and problems will be addressed in this part. After the literature review part, detailed report on implementation of secure wallet and zero knowledge contingent payments will be shown. Last but not the least, current outcomes of this project will be discussed. And finally, a conclusion as well as possible improvements will conclude this paper.
 
-% TODO: Roadmap
-
+% Literature review part
+%   this content is comming from assignment 2 Literature review
+% TODO: modify it to suit needs of thesis
 \section{Literature Review}
 \label{sec:Literature Review}
 
 \subsection{Bitcoin}
+
+Bitcoin is the first decentralized digital currency as well as a digital payment system. The whole system is peer-to-peer based, whose transactions are between users directly without participation of intermediary. Transactions are verified by network nodes - known as \textit{mining} - and recorded in a public distributed ledger called \textit{blockchain}.
+
 \subsubsection{Blockchain}
 
-Blockchain is the way how Bitcoin keeps its public ledger. To some extent, blockchain is simply a peer-to-peer distributed timestamp server. The ultimate goal of this design is to solve \textit{double-spending} problems and prevent modification of transaction records\cite{nakamoto2008bitcoin}. 
+Blockchain is the way how Bitcoin keeps its public ledger within its peer-to-peer network. To some extent, blockchain is a peer-to-peer distributed timestamp server. The ultimate goal of this design is to solve \textit{double-spending} problems and prevent modification of transaction records\cite{nakamoto2008bitcoin}. 
 
 Each full node in the Bitcoin network keeps a full copy of the blockchain, in which all blocks validated by this particular is stored. When several nodes within the network independently arrive at identical blockchains, they are considered to be in \textit{consensus}. As its name suggests, a blockchain is a digital chain of blocks, where a timestamp, a nonce, and a Merkle Tree is stored.  The blocks are chained cryptographically using hash. In detail, each block contains the hash of its previous block ,finally leading to the Genesis Block. Any modification on blocks in the chain would violates all subsequent hashes, which is vital for consistency of the ledger. Figure \ref{fig:blockchain} shows part of a blockchain. 
 
@@ -111,23 +118,23 @@ Each full node in the Bitcoin network keeps a full copy of the blockchain, in wh
     \label{fig:blockchain}
 \end{figure}
 
-However, computing a hash is expensive. This truth enables the adoption of \textit{proof-of-work} in bitcoin network. 
+However, computing a hash is expensive. This truth enables \textit{proof-of-work} in bitcoin network. 
 
 \subsubsection{Proof of Work}
 
-According to blockchains' feature, a huge amount of computation is required in the generation of each block. Meanwhile, there is a \textit{proof-of-work} mechanism to make the distributed timestamp server work and determine representation in majority decision making. Especially, when there are multiple chains (forked chains), consensus rules will pick up the longest chain, which contains the most proof of work during its generation\cite{nakamoto2008bitcoin}.
+According to blockchains' feature, a huge amount of computation is required in the generation of each block. Meanwhile, there is a \textit{proof-of-work} mechanism to make the distributed timestamp server work and determine representation in majority decision making. Especially, when there are multiple chains (forks), consensus rules will pick up the longest chain, which contains the most proof of work during its generation\cite{nakamoto2008bitcoin}.
 
-In this way, any malicious changes on previous blocks would violate its following blocks. That is to say, hacker with huge computing power can hijack the blockchain if he can generate the longest chain from the block he hacks, in turn, he has to own more than half of the computing power within the whole blockchain network\cite{NG17}.
+In this way, any malicious changes on previous blocks would violate its following blocks. That is to say, hacker with huge computing power can hijack the blockchain if he can generate the longest chain from the block he hacks. In turn, he has to own more than half of the computing power within the whole blockchain network\cite{NG17}.
 
 \subsubsection{Contracts}
 
 There are distributed contracts in Bitcoin transactions for agreement enforcements, which provides another way to formalize and guarantee agreements rather than traditional court system. Examples include Escrow, Micropayment channels and CoinJoin.
 
-Some of the contracts can be implemented in Bitcoin Script, especially the zero knowledge contingent payments in Bitcoin is achieved using it. However the Red Belly Blockchain doesn't have a robust script language like Bitcoin does.
+Some of the contracts can be implemented in Bitcoin Script, especially the zero knowledge contingent payments in Bitcoin is achieved with support of bitcoin scripts. However the Red Belly Blockchain doesn't have a robust scripting language like Bitcoin does.
 
 \subsection{Ethereum}
 
-\subsubsection{Previous Work}
+\subsubsection{Previous Work of Bitcoin}
 
 Bitcoin provides a protocol allowing weak implementation of \textit{smart contracts}. However, several limitations exists in Bitcoin's scripting language:
 
@@ -142,7 +149,7 @@ Bitcoin provides a protocol allowing weak implementation of \textit{smart contra
 
 Ethereum implements a blockchain with Turing-complete scripts, states, value awareness and blockchain awareness, which enables development of smart contracts, and even new protocols\cite{wood2014ethereum}.
 
-\section{Balance Attack}
+\subsection{Balance Attack}
 \label{sec:Balance Attack}
 
 As the previous review mentioning, to attack a blockchain, or specifically to rewrite the content of a block, the hacker should have more than half of the computing power of the whole blockchain network which is almost unfeasible in real world. In particular, by delaying the propagation of blocks in Bitcoin system, the hacker can in result delay the growth of the longest branch of the system. In other word, he can then hijack the blockchain even without a large amount of computing power. Ethereums' ``Blockchain 2.0'' somehow fixes this problem, but there is still other possible method against forked blockchain. One practice is the \textbf{Balance Attack} \cite{Gra16}\cite{NG17}\cite{NG16}against \textit{proof-of-work} blockchain systems.
@@ -155,10 +162,10 @@ To achieve a balance attack within the blockchain network, the attacker should d
     \label{fig:balance_attack}
 \end{figure}
 
-\section{Unforkable Blockchain}
+\subsection{Unforkable Blockchain}
 \label{sec:Unforkable Blockchain}
 
-\subsection{Byzantine Consensus Problem}
+\subsubsection{Byzantine Consensus Problem}
 
 The \textit{Byzantine Consensus Problem} refers to the \textit{Byzantine General's Problem} proposed by Leslie Lamport, Robert Shostak and Marshall Pease in 1982. The problem is complicated by the presence of traitorous generals who may not only cast a vote for a suboptimal strategy, they may do so selectively. All the votes and results are simplified to attack or retreat. The problem is complicated further by the generals being physically separated and having to send their votes via messengers who may fail to deliver votes or may forge false votes\cite{lamport1982byzantine}.
 
@@ -197,10 +204,10 @@ Red Belly Blockchain is new blockchain relying on the Democratic BFT. The \texti
 
 The performance of this new blockchain is quite good. It can achieve more than 400 transactions per second and with great scalability up to 90 server nodes.
 
-\section{Zero Knowledge Contingent Payment}
+\subsection{Zero Knowledge Contingent Payment}
 \label{sec:Zero Knowledge Contingent Payment}
 
-\subsection{Bitcoin}
+\subsubsection{Bitcoin ZKCP}
 
 Zero Knowledge Contingent Payment in Bitcoin is first proposed by Gregory Maxwell in 2011 on Bitcoin Wiki\cite{maxwell5zero}. The basic process can be illustrated by an example\cite{campanelli2017zero}:
 
@@ -214,7 +221,7 @@ Zero Knowledge Contingent Payment in Bitcoin is first proposed by Gregory Maxwel
 
 Specifically in Blockchain, the ZKCP protocol now has several practices rather than theory. One is ZK-SNARK protocols allowing for the practical implementation of the necessary proofs\cite{kalai2006succinct}\cite{ben2015secure}\cite{ecc2011}.
 
-\subsection{Zero Knowledge Contingent Payment without Scripts}
+\subsubsection{Zero Knowledge Contingent Payment without Scripts}
 
 However, all implemented ZKCP protocols now are based on scripting language in traditional forkable blockchain\cite{Banasik2016}. Besides, there is no convincing data of its performance on modern mobile devices\cite{doi:10.1080/00207160.2014.933816}.
 
