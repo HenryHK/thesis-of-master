@@ -84,16 +84,16 @@ Dr. Vincent \textsc{Gramoli} % Supervisor's Name
 \section{Introduction}
 
 % context part, introduction to cryptocurrencies
-From the time when Block 0 of Bitcoin blockchain, the Genesis Block, is created at 18:15:05 GMT on January 3rd, 2009, the words ``cryptocurrencies'' and ``Blockchain'' become one of the most popular topics in information technology fields. The ``decentralized'' and ``anonymous'' nature of cryptocurrencies overcomes the weakness of traditional \textit{trust-based} electronic payments who relies heavily on trusted third-party financial institutions. The \textit{cryptographic proof-of-work} of bitcoin enables reliable transaction between two parties directly\cite{nakamoto2008bitcoin}. Through almost 10 years development, cryptocurrencies turns out to be a large family and can be accessed via desktop, laptop, or even mobile devices like smart phones.
+From the time when Block 0 of Bitcoin blockchain, the Genesis Block, is created at 18:15:05 GMT on January 3rd, 2009, the words ``cryptocurrencies'' and ``Blockchain'' become one of the most popular topics in information technology fields. The ``decentralized'' and ``anonymous'' nature of cryptocurrencies overcomes the weakness of traditional \textit{trust-based} electronic payments who relies heavily on trusted third-party financial institutions. It's cryptography-based nature also make sure its security in some sense. The \textit{cryptographic proof-of-work} of bitcoin enables reliable transaction between two parties directly\cite{nakamoto2008bitcoin}. Through almost 10 years development, cryptocurrencies turns out to be a large family and can be accessed via desktop, laptop, or even mobile devices like smart phones.
 
 % Problem
-Though bitcoin gives a practical solution on traditional \textit{double spending} problem in digital currencies, this doesn't mean that it is secure in all aspects. One possible issue is bitcoin blockchain's forkable feature. Actually, other cryptocurrencies allowing forkable chains all suffer from the very same issue. In this sense, unfokable blockchain is proven to overcome this shortcomming\cite{DBLP:journals/corr/CrainGLR17}. To consider in another aspect, another possible solution to secure transaction is to adopt mechanism like \textit{zero knowledge contingent payment} which are released if and only if some knowledge is disclosed by the payee and to do this in a trustless manner where neither the payer or payee can cheat\cite{wiki2011zero}\cite{sasson2014zerocash}. Whilst there are several theoretical discussion and practices in a variety of contexts, this paper will concentrate on how to develop a secure cryptocurrency wallet on the basis of unforkable blockchain and zero knowledge contingent payments. 
+Though bitcoin gives a practical solution on traditional \textit{double spending} problem in digital currencies, this doesn't mean that it is secure in all aspects. One possible issue is bitcoin blockchain's forkable feature. Actually, other cryptocurrencies allowing forkable chains all suffer from the very same issue. It will become a problem for wallet users if the nodes they are contacting is hijacked. In this sense, unfokable blockchain is proven to overcome this shortcommings\cite{DBLP:journals/corr/CrainGLR17}. To consider in another aspect, another possible solution to secure transaction is to adopt mechanism like \textit{zero knowledge contingent payment} which are released if and only if some knowledge is disclosed by the payee and to do this in a trustless manner where neither the payer or payee can cheat\cite{wiki2011zero}\cite{sasson2014zerocash}. Whilst there are several theoretical discussion and practices in a variety of contexts, this paper will concentrate on how to develop a secure cryptocurrency wallet on the basis of unforkable blockchain and enable secure trades between parties by the help of zero knowledge contingent payments. 
 
 % Contributions
-In this project, I intend to contribute in two separated directions: one is to develop a mobile client for Red Belly Blockchain - a practice to deploy unforkable blockchain onto modern mobile devices; the other is to explore the way to enable zero knowledge contingent payments within Red Belly Blockchain network. The primary goal of this research is to examine the feasibility of real-life secure application for unforkable blockchain like Red Belly Blockchain.
+In this project, I intend to contribute in two separated directions: one is to develop a secure mobile client for Red Belly Blockchain - a practice to deploy unforkable blockchain onto modern mobile devices; the other is to explore the way to enable zero knowledge contingent payments within Red Belly Blockchain network. The primary goal of this research is to examine the feasibility of real-life secure application for unforkable blockchain like Red Belly Blockchain.
 
 % Roadmap
-In the following report, related works will be given first. Essential concepts and problems will be addressed in this part. After the literature review part, detailed report on implementation of secure wallet and zero knowledge contingent payments will be shown. Last but not the least, current outcomes of this project will be discussed. And finally, a conclusion as well as possible improvements will conclude this paper.
+In the following report, related works will be given first. Essential concepts and problems will be addressed in this part. After the literature review, the methodologies and proposed contribution is given. After that, detailed report on implementation of secure wallet and zero knowledge contingent payments will be shown. Last but not the least, current outcomes of this project will be discussed. And finally, a conclusion as well as possible improvements and future works will conclude this paper.
 
 % Literature review part
 %   this content is comming from assignment 2 Literature review
@@ -225,11 +225,25 @@ Specifically in Blockchain, the ZKCP protocol now has several practices rather t
 
 However, all implemented ZKCP protocols now are based on scripting language in traditional forkable blockchain\cite{Banasik2016}. Besides, there is no convincing data of its performance on modern mobile devices\cite{doi:10.1080/00207160.2014.933816}.
 
+\section{Methodologies and Proposed Contributions}
+
+\subsection{Previous Work}
+
+This research is on the basis of Red Belly Blockchain which is a unforkable blockchain running Democratic Byzantine Fault Tolerance. The development of secure wallet is build upon the implementation of Red Belly Blockchain.
+
+In Red Belly Blockchain, all nodes are communicated through TCP+SSL. Nodes in this blockchain consists of nodes-the \textit{participants}-running Byzantine Consensus Algorithms and external nodes communicating with the \textit{participants}. A transaction or balance of an account can only be considered correct if more than one thirds of the \textit{participants} agreed.   
+
+\subsection{Methodologies}
+
+The ultimate goal of this research is to develop a wallet that enables secure balance retrieving, transaction proposing, as well as trading. This would require design and development in both server side and client side.
+
+The first part of this project is to add secure \textit{remote procedure call} to Red Belly Blockchain
+
+\subsection{Proposed Contributions}
+
 \section{Secure Wallet}
 
-
-\subsection{Red Belly Blockchain wallet}
-
+\subsection{Red Belly Blockchain Wallet}
 
 \subsection{Zero Knowledge Contingent Payments}
 
