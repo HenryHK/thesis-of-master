@@ -225,25 +225,50 @@ Specifically in Blockchain, the ZKCP protocol now has several practices rather t
 
 However, all implemented ZKCP protocols now are based on scripting language in traditional forkable blockchain\cite{Banasik2016}. Besides, there is no convincing data of its performance on modern mobile devices\cite{doi:10.1080/00207160.2014.933816}.
 
+\section{Motivation}
+
+From the above review of cryptocurrencies and blockchain contexts, one can conclude that the blockchain technology adopted by cryptocurrencies nowadays has potential risks regarding to its forkable nature. This also influence the usage of current cryptocurrency wallet - there is no guarantee that the proposed transaction (or retrieved balance) from wallet is securely handled by the server if it contacts only one single machine.
+
+Hence, the motivation of this research comes from this gap. The aim of this research is to develop a wallet making both transaction proposing and balance retrieving reliable and correct. During the first part of this research, a secure wallet will be developed, perfoming in a Red Belly Blockchain way to avoid possible attacks targeting at fork chains. The Zero Knowledge Contingent Proof will try to add another guarantee so that either party within a transaction cannot cheat for its own benefits.
+
 \section{Methodologies and Proposed Contributions}
 
 \subsection{Previous Work}
 
-This research is on the basis of Red Belly Blockchain which is a unforkable blockchain running Democratic Byzantine Fault Tolerance. The development of secure wallet is build upon the implementation of Red Belly Blockchain.
+This research is on the basis of Red Belly Blockchain which is an unforkable blockchain running \textit{Democratic Byzantine Fault Tolerance}. The development of secure wallet is build upon the implementation of Red Belly Blockchain.
 
-In Red Belly Blockchain, all nodes are communicated through TCP+SSL. Nodes in this blockchain consists of nodes-the \textit{participants}-running Byzantine Consensus Algorithms and external nodes communicating with the \textit{participants}. A transaction or balance of an account can only be considered correct if more than one thirds of the \textit{participants} agreed.   
+In Red Belly Blockchain, all nodes are communicated through TCP+SSL. Nodes in this blockchain consists of nodes running Byzantine Consensus Algorithms - the \textit{participants}, and external nodes communicating with the \textit{participants}. A transaction or balance of an account can only be considered correct if more than one thirds of the \textit{participants} agreed as required by DBFT.
+
+\subsection{Proposed Contributions}
+
+To develop a secure wallet, a secure protocol between server and clients is required. In this project, TCP and SSL is chosen to be the techniques for communications. I intent to implement \textit{remote procedure call} for Red Belly Blockchain nodes first so that further functions can be achieved on client side. 
+
+Regarding to the client, I intend to implement secure wallet basic balance and transaction request functions complying with the same DBFT algorithm as Red Belly Blockchain nodes. In this sense, users of wallet can make sure that the balance and transaction are correctly obtained or proposed respectively.
+
+In addition to server enhancement and secure wallet development, the pursuit of security also motivated this research to develop a Zero Knowledge Contingent Payments model for RBBC so that no party can cheats within such a `contract'. The ZKCP implementation in RBBC is not like the one in Bitcoin who has scripts supporting this function while RBBC doesn't have.
 
 \subsection{Methodologies}
 
 The ultimate goal of this research is to develop a wallet that enables secure balance retrieving, transaction proposing, as well as trading. This would require design and development in both server side and client side.
 
-The first part of this project is to add secure \textit{remote procedure call} to Red Belly Blockchain. The \textit{RPC} protocol should be through TCP + SSL. Once the \textit{RPC} server is ready, Java and Android client could be developed based on it. After the client is developed, benchmarks on speed of balance retrieving and transaction proposing is required. And at the end of the above, I'll explore to develop a model to integrate \textit{Zero Knowledge Contingent Payments} into the application. 
-
-\subsection{Proposed Contributions}
+The first part of this project is to add secure \textit{remote procedure call} to Red Belly Blockchain. The \textit{RPC} protocol should be through TCP and SSL. Once the \textit{RPC} server is ready, Java and Android client could be developed based on it. After the client is developed, benchmarks on speed of balance retrieving and transaction proposing is required. And at the end of the above, I'll explore to develop a model to integrate \textit{Zero Knowledge Contingent Payments} into the application. 
 
 \section{Secure Wallet}
 
+In this report, secure wallet refers to two parts: the Red Belly Blockchain wallet and the Zero Knowledge Contingent Payments Model. This paper will explain the design and implementation of secure wallet in detail respectively.
+
 \subsection{Red Belly Blockchain Wallet}
+
+\subsubsection{Preliminaries}
+
+\subsubsection{Functions of Red Belly Blockchain Wallet}
+
+\subsubsection{Design of Red Belly Blockchain Wallet}
+
+\subsubsection{Red Belly Blockchain Compatibility}
+
+\subsubsection{implementation of Red Belly Blockchain Wallet}
+
 
 \subsection{Zero Knowledge Contingent Payments}
 
