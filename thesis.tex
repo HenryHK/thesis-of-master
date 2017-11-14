@@ -261,6 +261,17 @@ In this report, secure wallet refers to two parts: the Red Belly Blockchain wall
 
 \subsubsection{Preliminaries}
 
+\textbf{Definitions}
+
+\textbf{UTXO} - the term \textbf{UTXO} stands for \textit{Unspent Transaction Outputs}. UTXOs in Red Belly Blockchain act as the same role of it in Bitcoin, which records where spendable coins are in blockchain. To store UTXOs in Red Belly Blockchain, a table structure called \text{UTXO table} is used.
+
+\begin{enumerate}
+    \item \textit{UtxoOutput} In Red Belly Blockchain, one \textit{unspent transaction output} consists of four fields: \textit{spent} marks whether this output is consumed, \textit{value} shows the amount of coin contained in this output, \textit{address} showing where this output is sent to, and \textit{script} shows the payee's public key, in other word, where this output comes from.
+
+    \item \textit{UTXO Table} The UTXO table is the way Red Belly Blockchain nodes store UTXOs. 
+    
+\end{enumerate}
+
 \subsubsection{Functions of Red Belly Blockchain Wallet}
 
 \subsubsection{Design of Red Belly Blockchain Wallet}
