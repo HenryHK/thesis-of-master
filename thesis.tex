@@ -113,6 +113,7 @@ Each full node in the Bitcoin network keeps a full copy of the blockchain, in wh
 
 % blockchain figure here
 \begin{figure}
+    \centering
     \includegraphics{blockchain.png}
     \caption{Blockchain}
     \label{fig:blockchain}
@@ -157,6 +158,7 @@ As the previous review mentioning, to attack a blockchain, or specifically to re
 To achieve a balance attack within the blockchain network, the attacker should divide the network into subgroups of similar mining power by cutting off their communications. During this down time, the attacker issues transaction in the \textit{transaction group}, and mine blocks in the \textit{block group} simultaneously. This action only ends when it comes to the point where the tree of the block subgroup outweighs the tree of the transaction group, which is with high possibility. The balance, in result, can leverage the \textit{GHOST} protocol that accounts for sibling or uncle blocks to determine on a chain of blocks. This strategy allows the attacker to mine a branch regardless of the rest of the network so that he can influence the branch determination process while merging\cite{NG17}. The process is as shown in Figure \ref{fig:balance_attack}.
 
 \begin{figure}
+    \centering
     \includegraphics{balance_attack.png}
     \caption{Balance Attack}
     \label{fig:balance_attack}
@@ -292,11 +294,22 @@ In addition to lists of \textit{Transcation Input}s and \textit{Transaction Outp
 
 \textbf{Description of Red Belly Blockchain Transaction Syntax}
 
-First of all, users in Red Belly Blockchain is identified by their public keys generated from ECDSA signature scheme. The address of one specific account is derived from public key using \textit{Hash160}. In the simplest case, transaction $T$ sends some number of coins from an address ${address_1}$ to another address ${address_2}$. 
+First of all, users in Red Belly Blockchain is identified by their public keys ${pk_1}$ generated from ECDSA signature scheme. The address of one specific account is derived from public key using \textit{Hash160}. In the simplest case, transaction $T$ sends some number of coins from an address ${address_1}$ to another address ${address_2}$. The amount of coin is the \textit{value} in \textit{transaction}. The transaction $T$ must have a pointer to a previous transaction $T'$ such that $T$ is valid only if $T'$ is not redeemed before and has enough balance. Hence, in the simplest model, a transaction contains a following tuple $[T] := (TransactionInput: T', TransactOutput: T'', FromAddress: {address_1}, Hash: h([T] except for hash))$. To make a transaction valid, the same private key ${sk_1}$ corresponding to ${pk_1}$ should be used to sign it.
+
+A transaction may also have multiple inputs and outputs which redeems a combination of several previous outputs and produce new outputs to multiple addresses. In Bitcoin network, the total value of one transaction's inputs can be larger than it outputs where the difference is called `transaction fee' for rewarding miners. But we don't have such mechanism in Red Belly Blockchain, we simply conclude that there is no transaction fee or the fee equals to zero in our case.
+
+Another kind of transaction is called \textit{multisig} transaction. We will not consider this in the implementation of basic secure wallet. The concept and usage of it will be introduced in the ZKCP part of this paper.
 
 \subsubsection{Functions of Red Belly Blockchain Wallet}
 
-\subsubsection{Design of Red Belly Blockchain Wallet}
+Just as its name suggests, the wallet application should have a basic function as a real wallet, namely to put money in, get the money and transfer it for goods. While this research is developing a digital one, the following functions is required to be included in the application:
+
+\begin{enumerate}
+   \item \textbf{Configurations} - The wallet should be able to be configured according to various usage circumstances. Basically, the node addresses or DNS server addresses that the application communicates with should be able to configured within the application. In addition to this, the security level of application is also set to be configurable. In detail, the number of identical responses to accept as the correct response and  
+   \item \textbf{Account Settings}
+   \item \textbf{Retriev Balance}
+   \item \textbf{Propose Transaction}
+\end{enumerate}
 
 \subsubsection{Red Belly Blockchain Compatibility}
 
