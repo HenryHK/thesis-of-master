@@ -262,6 +262,7 @@ In this report, secure wallet refers to two parts: the Red Belly Blockchain wall
 \subsection{Red Belly Blockchain Wallet}
 
 \subsubsection{Preliminaries}
+\label{sec:preliminaries}
 
 \textbf{Definitions\\}
 
@@ -305,19 +306,29 @@ Another kind of transaction is called \textit{multisig} transaction. We will not
 Just as its name suggests, the wallet application should have a basic function as a real wallet, namely to put money in, get the money and transfer it for goods. While this research is developing a digital one, the following functions is required to be included in the application:
 
 \begin{enumerate}
-   \item \textbf{Configurations} - The wallet should be able to be configured according to various usage circumstances. Basically, the node addresses or DNS server addresses that the application communicates with should be able to configured within the application. In addition to this, the security level of application is also set to be configurable. In detail, the number of identical responses to accept as the correct response and  
-   \item \textbf{Account Settings}
-   \item \textbf{Retriev Balance}
-   \item \textbf{Propose Transaction}
+   \item \textbf{Configurations} - The wallet should be able to be configured according to various usage circumstances. Basically, the node addresses or DNS server addresses that the application communicates with should be able to configured within the application. In addition to this, the security level of application is also set to be configurable. In detail, the number of identical responses to accept as the correct response and the choice whether using an encryption during communication. The aim of the later one is to give users the right to choose from security or speed because possible latency may occur if there are more server to communicate or more complex encryption to compute.
+
+   \item \textbf{Account Settings} - As mentioned in section \ref{sec:preliminaries}, an account is represented by its public key or derived addresses. The public key and secret key pair is generated from ECDSA signature scheme. The application should be able to create new key pair or import existing key pair (indeed only private key needed to reconstruct).
+    
+   \item \textbf{Retrieve Balance} - Balance is how many coins are available in UTXOs associated to this account. To get the balance of one specific account, we have two choice to implement, one is to compute the balance on server and return it to client, the other is to return UTXOs to client and let client traverse UTXOs itself. Here the second option is chosen considering that local UTXOs are also needed to propose transaction which gives enough reason to carry this time-consuming procedure. As for security concern, the UTXOs retrieved from Red Belly Blockchain nodes can only be considered correct if adequate number of identical responses - more than one thirds of the \textit{participants} - had been received. Once the client get adequate confirmation of correct UTXOs, it will traverse the UTXOs to get its balance from unspent outputs.
+
+   \item \textbf{Propose Transaction} - The process to propose transaction has one more step compared to the process of balance retrieving. The prerequisite of make a transaction is to get correct UTXOs. Hence, the client will need to get adequate number of identical UTXOs first. After that, the client will existing outputs as the inputs of the newly created transaction, and create corresponding transaction outputs. After the above work is done, the client will wrap transaction inputs, transaction outputs, its own address and the hash of these fields together. The client then will sign the aggregated transaction and propose it to the \textit{participants}. Once more than one thirds of nodes confirmed, the transaction could be regarded as accepted.
+
+   \item \textbf{Secure Storage} - The way to store information and data of secure wallet is another security concern. Though the consensus system Red Belly Blockchain runs can tolerate malicious node, it's still dangerous to users' privacy. Hence, the application will not store any data into any format of files. Instead, we use the encrypted storage of Android OS. In this way, a system level security storage can be guaranteed.
 \end{enumerate}
 
 \subsubsection{Red Belly Blockchain Compatibility}
 
-\subsubsection{implementation of Red Belly Blockchain Wallet}
 
+
+\subsubsection{Implementation of Red Belly Blockchain Wallet}
 
 \subsection{Zero Knowledge Contingent Payments}
 
+
+\section{Discussion}
+
+\section{Future Work}
 
 % TODO: modify conclusion
 \section{Conclusion}
