@@ -261,16 +261,38 @@ In this report, secure wallet refers to two parts: the Red Belly Blockchain wall
 
 \subsubsection{Preliminaries}
 
-\textbf{Definitions}
+\textbf{Definitions\\}
 
 \textbf{UTXO} - the term \textbf{UTXO} stands for \textit{Unspent Transaction Outputs}. UTXOs in Red Belly Blockchain act as the same role of it in Bitcoin, which records where spendable coins are in blockchain. To store UTXOs in Red Belly Blockchain, a table structure called \text{UTXO table} is used.
 
 \begin{enumerate}
     \item \textit{UtxoOutput} In Red Belly Blockchain, one \textit{unspent transaction output} consists of four fields: \textit{spent} marks whether this output is consumed, \textit{value} shows the amount of coin contained in this output, \textit{address} showing where this output is sent to, and \textit{script} shows the payee's public key, in other word, where this output comes from.
 
-    \item \textit{UTXO Table} The UTXO table is the way Red Belly Blockchain nodes store UTXOs. 
-    
+    \item \textit{UTXO Table} The UTXO table is the way Red Belly Blockchain nodes store UTXOs. As figure\ref{fig:utxo_table} shows, the structure to store UTXOs includes two parts: a map structure mapping hash of transaction to list of outputs and another map mapping account address to its related transaction's hash.
 \end{enumerate}
+
+UTXOs in Red Belly Blockchain will be serialized into bytes during communication.
+\\
+
+\begin{figure}
+    \centering
+    \includegraphics{utxo_table.png}
+    \caption{UTXO Table Structure}
+    \label{fig:utxo_table}
+\end{figure}
+
+\textbf{Transaction} - transaction in Red Belly Blockchain is similar with transaction in Bitcoin. To define a transaction in Red Belly Blockchain, we have to define two definitions - the \textit{Transaction Input} and the \textit{Transaction Output}.
+
+\begin{enumerate}
+       \item \textit{Transaction Input} stands for the users' `balance' for transaction. It consists of hash of transaction to be redeemed, index of its entry in UTXO table, and script standing for the account address that owns this UTXO.
+       \item \textit{Transaction Output} serves as the transfer of coin. It contains the number of coins, the receiver's account address, and the payer's public key as its script. The output will give the money to the address specified. Meanwhile, an entry in UTXO table will be created to this output which makes sure that these coins can be used for another transaction.
+\end{enumerate}
+
+In addition to lists of \textit{Transcation Input}s and \textit{Transaction Output}s, the address that the transaction is from as well the hash of the other parts of transaction is included.\\
+
+\textbf{Description of Red Belly Blockchain Transaction Syntax}
+
+
 
 \subsubsection{Functions of Red Belly Blockchain Wallet}
 
