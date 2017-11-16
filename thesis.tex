@@ -366,6 +366,7 @@ Four servers on Amazon Web Service in Oregon are set up for testing purpose. Eac
 The first Zero Knowledge Contingent Payments of Bitcoin is successfully made in 2016. The initial motivation of this exploration is to proove the robustness and capability of Bitcoin Scripts. Things are different in Red Belly Blockchain who has no scripts. Hence, this paper aims to find a proper model to fit \textit{Zero Knowledge Contingent Payments} into Red Belly Blockchain, as well as the implementation of secure wallet.
 
 \subsubsection{Preliminaries}
+\label{sec:zkcp_preliminaries}
 
 \textbf{Definitions\\}
 
@@ -381,7 +382,20 @@ Paillier cryptosystem is a probabilistic asymmetric algorithm for public key cry
 
 Zero Knowledge Contingent Payments in Red Belly Blockchain relies on Time-Locked Commitment schemes. To describe informally, the \textit{Time-Locked Commitment} is no more than a standard $(Commit, Open)$ protocol except that it introduce a \textit{force openning} mechanism where the receiver can open the commitment consuming a significant computational time. Though the time to \textit{force open} a commitment differs from receivers, especially when taking mobile devices into accounts, we assume that this difference limited due to real-life parallelized efficiency.
 
+% TODO: add CUT-AND-CHOOSE in preliminaries maybe
+
 \subsubsection{Secret-Shared Key Generation Protocol}
+
+In the first step of our ZKCP model, buyer and seller establish a connection between each other using the Secret-Share ECDSA scheme described in Section \ref{sec:zkcp_preliminaries}. 
+
+The basic flow works like Figure \ref{fig:secret_share}.
+
+\begin{figure}
+    \centering
+    \includegraphics{secret_share.png}
+    \caption{secret-shared key generation}
+    \label{fig:secret_share}
+\end{figure}
 
 \subsubsection{Unique Signature Generation Protocol}
 \label{sec:usg}
