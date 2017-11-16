@@ -98,7 +98,6 @@ In the following report, related works will be given first. Essential concepts a
 
 % Literature review part
 %   this content is comming from assignment 2 Literature review
-% TODO: modify it to suit needs of thesis
 \section{Literature Review}
 \label{sec:Literature Review}
 
@@ -238,9 +237,14 @@ Hence, the motivation of this research comes from this gap. The aim of this rese
 
 \subsection{Previous Work}
 
+\subsubsection{Red Belly Blockchain}
+
 This research is on the basis of Red Belly Blockchain which is an unforkable blockchain running \textit{Democratic Byzantine Fault Tolerance}. The development of secure wallet is build upon the implementation of Red Belly Blockchain.
 
 In Red Belly Blockchain, all nodes are communicated through TCP+SSL. Nodes in this blockchain consists of nodes running Byzantine Consensus Algorithms - the \textit{participants}, and external nodes communicating with the \textit{participants}. A transaction or balance of an account can only be considered correct if more than one thirds of the \textit{participants} agreed as required by DBFT.
+
+\subsubsection{Efficient Zero Knowledge Contingent Payments without Scripts}
+% TODO: add some contexts here 
 
 \subsection{Proposed Contributions}
 
@@ -382,9 +386,12 @@ Paillier cryptosystem is a probabilistic asymmetric algorithm for public key cry
 
 Zero Knowledge Contingent Payments in Red Belly Blockchain relies on Time-Locked Commitment schemes. To describe informally, the \textit{Time-Locked Commitment} is no more than a standard $(Commit, Open)$ protocol except that it introduce a \textit{force openning} mechanism where the receiver can open the commitment consuming a significant computational time. Though the time to \textit{force open} a commitment differs from receivers, especially when taking mobile devices into accounts, we assume that this difference limited due to real-life parallelized efficiency.
 
-% TODO: add CUT-AND-CHOOSE in preliminaries maybe
+\textbf{Cut-and-Choose}
+
+\textit{Cut-and Choose} is a common technique used in zero knowledge proof. The barebone idea of this is to perform multiple times of independent executions of a protocol. Statistically, if the seller can show parts of his answers are correct by uncovering those commitments, there is a high significant probability that the remaining ones are correct as well. 
 
 \subsubsection{Secret-Shared Key Generation Protocol}
+\label{sec:kgen}
 
 In the first step of our ZKCP model, buyer and seller establish a connection between each other using the Secret-Share ECDSA scheme described in Section \ref{sec:zkcp_preliminaries}. 
 
@@ -400,9 +407,38 @@ The basic flow works like Figure \ref{fig:secret_share}.
 \subsubsection{Unique Signature Generation Protocol}
 \label{sec:usg}
 
+The Unique Signature Generation Protocol uses protocol that generates secret-shared key stated in above Section \ref{sec:kgen}. Before the execution of Unique Signature Generation Protocol, we assumes that two parties run the \textit{secret-shared key generation protocol} $a$ times.
+
+Using the results from previous protocol, buyer and seller could sign a message $m$ using the private key. At the first step of Unique Signature Generation Protocol, they jointly create a signing randomness $R$. Then the seller creates a new key using Paillier cryptosystem and sends the encryted ${d_S}$ (the secret share of seller regarding to secret key $d$) to buyer. Buyer will continue to calculate the remaining part of the encryption of the unfinished signature and return the result to seller. At this stage, the seller is able to decrupts it and finally complete the signature $\sigma$. To make sure the trade remains unharmful if the seller is malicious, same commitment technique is applied here as well. Seller need to make a commitment $Commit({\sigma})$ of his signature $\sigma$ and a time-locked commitment of his secret-shared secret key ${d_S}$ so that buyer can \textit{force open} the commitment if the time of contract expired. 
+
 \subsubsection{SellWitness Protocol}
 
+To construct the final protocol to sell a witness as its name suggests, buyer need to create two transaction - ${T_1}$ and ${T_2}$. In our case, ${T_1}$ contains the money that buyer needs to pay and this will output to the address of the secret-shared key address or to a multisig escrow `t out of 2t-1' using the generated publick key $t$ times and his own public key $t-1$ times. However, buyer will not reveal this until he is convinced by the seller. ${T_2}$ is a transaction redeeming ${T_1}$ to seller because the hash of ${T_1}$ can be known without really broadcasting it). The content of transaction ${T_2}$, named as $m$, is the message that needs to be signed later.
+
+To simplify the description, this paper assumes $t=1$ here. At current stage, ${T_2}$ is commonly known to both parties but seller needs ${T_1}$ to spend ${T_2}$ while ${T_1}$ is private to buyer. Meanwhile buyer need learns the signature $\sigma$ of ${T_2}$ so that he can know the secret key that seller committed. Or after some time, the buyer may \textit{force open} seller's $Commit({d_S})$.
+
+Here the \textit{cut-and-choose} will be used again. Supposing there exist a zero knowledge proof of knowledge $\mathcolon{F}$ such that it has a function to extract witness satisfying ${Extract_F}(Buyer, {Challenge_1}, {Answer_1}, {Challenge_2}, {Answer_2}) = x$ and $f(x) = true$ if only anwsers are all correct and challenges are not the same. 
+
+Buyer will create multiple challenge pairs, ${({c_1}, {c_2})_i}$ respectively. And Seller calculates responses to each of them and commit the result encryption ${r_1}$ and ${r_2}$ using his asymmetric cyphers (the same secret keys used to sign ${T_2}$). Then Buyer selects certain number of challenge pairs and challenge Seller using a random one within each pair. The seller opens the corresponding commitments of secret key in return. Once buyer verifies all these commitments without error. The seller will open all commitments of encrypted answers to Buyer’s challenges. To be noticed, the commitment of secret key of seller is not revealed yet.
+
+Now the buyer will broadcast the private transaction ${T_1}$. The Seller can only spend it by revealing signature of ${T_2}$ so that he can propose ${T_2}$ to be accepted. In this stage, buyer can finally derive the secret key created during the construction of secret-shared key pair. Using this key, buyer then can use any pair of responses to decrypt the correct answer and work out the witness as the return of this trade.
+
+
 \section{Discussion}
+
+This research receives constructive results from the development of secure wallet and several inspired thoughts from the scratch of the zero knowledge contingent payments model in Red Belly Blockchain. This section will have a discussion on both side in the following contents.
+
+\subsection{Red Belly Blockchain Secure Wallet}
+
+To evaluate the results gained from secure wallet, it's more proper to have a look into its \textbf{performance} and \textbf{security} aspects separately.
+
+\subsubsection{Performance of Secure Wallet}
+
+Definitely, the number of test samples is not adequate right now due to time issues. 
+
+\subsubsection{Security of Secure Wallet}
+
+\subsection{Zero Knowledge Contingent Payments in Red Belly Blockchain}
 
 \section{Future Work}
 
