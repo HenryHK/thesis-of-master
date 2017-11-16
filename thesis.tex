@@ -73,6 +73,12 @@ Dr. Vincent \textsc{Gramoli} % Supervisor's Name
 
 \end{titlepage}
 
+\newpage
+\vfil
+\hfil \textit{Special thanks to Dr. Vincent Gramoli and everyone in CSRG of the University of Sydney who provides generous help during my research} \hfil
+\vfil
+\newpage
+
 \tableofcontents
 \vfill
 
@@ -194,7 +200,7 @@ Democratic Byzantine Fault Tolerance is a system specially tailored for consorti
 In safe Democratic Byzantine Fault Tolerance\cite{DBLP:journals/corr/CrainGLR17}, a mechanism called binary broadcast for binary Byzantine Consensus system is adopted. To conclude, there are four aspects that is strictly followed within DBFT:
 
 \begin{enumerate}
-    \item \textbf{Binary Value Obligation} - if t+1 correct BV-broadcats $v$, then $v$ is eventually added to the set binary values of all correct process.
+    \item \textbf{Binary Value Obligation} - if t+1 correct BV-broadcast $v$, then $v$ is eventually added to the set binary values of all correct process.
     \item \textbf{Binary Value Justification} - if $p_i$ is correct and and $v$ in $binary-values_i$ then $v$ was broadcasted by a correct process.
     \item \textbf{Binary Value Uniformity} - if $v$ is added to $binary-value_i$ of correct $p_i$, then eventually $v$ will be in $binary-value_j$ for all correct $p_j$.
     \item \textbf{Binary Value Termination} - eventually $binary-value$ of correct $p_i$ is not empty. 
@@ -243,8 +249,6 @@ This research is on the basis of Red Belly Blockchain which is an unforkable blo
 
 In Red Belly Blockchain, all nodes are communicated through TCP+SSL. Nodes in this blockchain consists of nodes running Byzantine Consensus Algorithms - the \textit{participants}, and external nodes communicating with the \textit{participants}. A transaction or balance of an account can only be considered correct if more than one thirds of the \textit{participants} agreed as required by DBFT.
 
-\subsubsection{Efficient Zero Knowledge Contingent Payments without Scripts}
-% TODO: add some contexts here 
 
 \subsection{Proposed Contributions}
 
@@ -376,11 +380,11 @@ The first Zero Knowledge Contingent Payments of Bitcoin is successfully made in 
 
 \textbf{Secret-Shared ECDSA Secret Key}
 
-Supposing there are two parties, namely buyer and seller, under our scenerio, they fix an elliptic curve over $(\mathbb{G},O,g,+)$ over a field ${\mathbb{Z}_p}$. According to scheme of ECDSA, the secret key is a private integer $d\in{\mathbb{Z}_{\mid G \mid}}$. In our case, both buyer and seller input a security parameter and they both know the public key $pk = d \cdot g$ where $d$ is the secret. Besides, the Seller and Buyer know ${d_B}, {d_S} \in {\mathbb{Z}_{\mid G \mid}}$ where ${d_S} \cdot {d_B} = d (mod {\mid G \mid})$.  The share protocol uses a commitment scheme in which eller make a commit $Commit({D_S})$ in exchange for buyer's secret key. If buyer's key is correct, seller will open his commitment afterwards. \\
+Supposing there are two parties, namely buyer and seller, under our scenerio, they fix an elliptic curve over $(\mathbb{G},O,g,+)$ over a field ${\mathbb{Z}_p}$. According to scheme of ECDSA, the secret key is a private integer $d\in{\mathbb{Z}_{\mid G \mid}}$. In our case, both buyer and seller input a security parameter and they both know the public key $pk = d \cdot g$ where $d$ is the secret. Besides, the Seller and Buyer know ${d_B}, {d_S} \in {\mathbb{Z}_{\mid G \mid}}$ where ${d_S} \cdot {d_B} = d (mod {\mid G \mid})$. \cite{goldfeder2015securing} \cite{herzberg1997method} The share protocol uses a commitment scheme in which eller make a commit $Commit({D_S})$ in exchange for buyer's secret key. If buyer's key is correct, seller will open his commitment afterwards. \\
 
 \textbf{Paillier Cryptosystem}
 
-Paillier cryptosystem is a probabilistic asymmetric algorithm for public key cryptography. The notable feature of Paillier cryptosystem is its homomorphic property along with its non-deterministic encryption. In this sense, giving only public key $pk$ and the encryption of messages ${m_1}$ and ${m_2}$, one can compute the encryption of ${m_1}+{m_2}$. This scheme will be used in Section \ref{sec:usg}\\
+Paillier cryptosystem is a probabilistic asymmetric algorithm for public key cryptography. The notable feature of Paillier cryptosystem is its homomorphic property along with its non-deterministic encryption. In this sense, giving only public key $pk$ and the encryption of messages ${m_1}$ and ${m_2}$, one can compute the encryption of ${m_1}+{m_2}$\cite{paillier1999public}. This scheme will be used in Section \ref{sec:usg}\\
 
 \textbf{Time-Locked Commitment}
 
@@ -388,7 +392,7 @@ Zero Knowledge Contingent Payments in Red Belly Blockchain relies on Time-Locked
 
 \textbf{Cut-and-Choose}
 
-\textit{Cut-and Choose} is a common technique used in zero knowledge proof. The barebone idea of this is to perform multiple times of independent executions of a protocol. Statistically, if the seller can show parts of his answers are correct by uncovering those commitments, there is a high significant probability that the remaining ones are correct as well. 
+\textit{Cut-and Choose} is a common technique used in zero knowledge proof. The barebone idea of this is to perform multiple times of independent executions of a protocol. Statistically, if the seller can show parts of his answers are correct by uncovering those commitments, there is a high significant probability that the remaining ones are correct as well\cite{lindell2016fast}. 
 
 \subsubsection{Secret-Shared Key Generation Protocol}
 \label{sec:kgen}
@@ -434,16 +438,39 @@ To evaluate the results gained from secure wallet, it's more proper to have a lo
 
 \subsubsection{Performance of Secure Wallet}
 
-Definitely, the number of test samples is not adequate right now due to time issues. 
+Definitely, the number of test samples is not adequate right now due to time issues. We can still conclude that the speed of transcation which indeed the time to derive a commonly agreed UTXOs is satasfying considering that the client is communicating with multiple remote servers across ocean. This proves the feasibility to deploy Red Belly Blockchain into real life applications, not limited to apllication like wallet. 
+
+To be noticed, \textbf{scalability} is another advantage shown in our results. Due to the `independent threads' implementation of secure wallet, the number of \textit{participants} we are communicating with has few influence on the time elapsed to retrieve a correct response.
+
+However, one potential threats that is not taken into consideration in our case is the size of UTXOs. The number clients limits the size growth in our network which leads to uncertain results if we have a large and busy blockchain network. Also the time needed to traverse a local UTXOs storage may also increase as well. The performance of SQLite in Android is not measured as well.
 
 \subsubsection{Security of Secure Wallet}
 
+As for security concern, this research mainly concentrates on communications and local storage. The benefits and tradeoffs of communicating with multiple \textit{participants} are both obvious. As long as the wallet follows principles, UTXOs obtained can be regarded as correct. Potential risks comes from Android local storage. The implementation of secure wallet avoids to leave possibility for any modification in local storage, but there is no guarantee that permission is well managed within the phone. Possible modification or injection still exists on OS level.
+
 \subsection{Zero Knowledge Contingent Payments in Red Belly Blockchain}
+\label{sec:zkcp_discussion}
+
+The Zero Knowledge Contingent Payments model in Red Belly Blockchain is rather a model or future work to go. The implementation of it is based on common safety assumptions of well-known techniques mentioned in Section \ref{sec:zkcp_preliminaries}. Hence, the proof is well addressed under real life applications. In addition to this, because of the lack of scripts in Red Belly Blockchain, we have to adopt the \textit{cut-and-choose} technique which requires a lot of redundancies. The time complexity of it can be simply co nclude as $O(tn)$ where we apply \textit{cut-and-choose} twice.
+
 
 \section{Future Work}
 
-% TODO: modify conclusion
+\subsection{Secure Wallet}
+
+Obviously more tests involving more \textit{participants} should be carried on in order to benchmark the performance and find out the bottleneck so that a better solution can be derived to make the wallet easy to use. 
+
+In addition to this, a measure on the performance when coming to large size of UTXOs is needed. Both the lag of network and the time to traverse the whole UTXOs are required to be analyzed. Tests on possible defects on storage can be carried as well. 
+
+\subsubsection{ZKCP model of RBBC}
+
+As the discussion in Section \ref{sec:zkcp_discussion}, the ZKCP model requires further proof as well as improvements in efficiency. Also a timing mechanism is n eeded if we will integrate the ZKCP model into Red Belly Blockchain as it uses the \textit{time-locked commitment}.
+
 \section{Conclusion}
+
+In conclusion, the risks behind current cryptocurrencies technology motivates this research to explore a way to ensure security in both blockchain levels and contracts levels, referring to the development of secure wallet and the design of zero knowledge contingent payments respectively in our case. By the help of Red Belly Blockchain with Democratic Byzantine Consensus System running, the first version of secure wallet provides a satisfying performance under basic tests. The ZKCP model also shows a potential to secure transaction with less support from system-level comapred to Bitcoin Scripts or Ethereum's Smart Contracts. Although there is no build or benchmarks at current stage, the capability to involve a mechanism ensuring no parties can cheat within a transaction is of vital importance considering the security issue that we emphasize most in this research.
+
+The application or future of this research can goes into a wider range not limited to a secure wallet on Android or a draft model of the \textit{zero knowledge contingent payments}. Further research can be conducted in order to find out the better usage or improvements for a secure blockchain as our pursuit.
 
 
 
