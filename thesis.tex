@@ -7,6 +7,7 @@
 \usepackage[english]{babel}
 \usepackage[utf8x]{inputenc}
 \usepackage{amsmath}
+\usepackage{amsfonts}
 \usepackage{graphicx}
 \usepackage[colorinlistoftodos]{todonotes}
 \usepackage{float}
@@ -368,11 +369,22 @@ The first Zero Knowledge Contingent Payments of Bitcoin is successfully made in 
 
 \textbf{Definitions\\}
 
+\textbf{Secret-Shared ECDSA Secret Key}
 
+Supposing there are two parties, namely buyer and seller, under our scenerio, they fix an elliptic curve over $(\mathbb{G},O,g,+)$ over a field ${\mathbb{Z}_p}$. According to scheme of ECDSA, the secret key is a private integer $d\in{\mathbb{Z}_{\mid G \mid}}$. In our case, both buyer and seller input a security parameter and they both know the public key $pk = d \cdot g$ where $d$ is the secret. Besides, the Seller and Buyer know ${d_B}, {d_S} \in {\mathbb{Z}_{\mid G \mid}}$ where ${d_S} \cdot {d_B} = d (mod {\mid G \mid})$.  The share protocol uses a commitment scheme in which eller make a commit $Commit({D_S})$ in exchange for buyer's secret key. If buyer's key is correct, seller will open his commitment afterwards. \\
+
+\textbf{Paillier Cryptosystem}
+
+Paillier cryptosystem is a probabilistic asymmetric algorithm for public key cryptography. The notable feature of Paillier cryptosystem is its homomorphic property along with its non-deterministic encryption. In this sense, giving only public key $pk$ and the encryption of messages ${m_1}$ and ${m_2}$, one can compute the encryption of ${m_1}+{m_2}$. This scheme will be used in Section \ref{sec:usg}\\
+
+\textbf{Time-Locked Commitment}
+
+Zero Knowledge Contingent Payments in Red Belly Blockchain relies on Time-Locked Commitment schemes. To describe informally, the \textit{Time-Locked Commitment} is no more than a standard $(Commit, Open)$ protocol except that it introduce a \textit{force openning} mechanism where the receiver can open the commitment consuming a significant computational time. Though the time to \textit{force open} a commitment differs from receivers, especially when taking mobile devices into accounts, we assume that this difference limited due to real-life parallelized efficiency.
 
 \subsubsection{Secret-Shared Key Generation Protocol}
 
 \subsubsection{Unique Signature Generation Protocol}
+\label{sec:usg}
 
 \subsubsection{SellWitness Protocol}
 
