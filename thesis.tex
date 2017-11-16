@@ -129,7 +129,7 @@ In this way, any malicious changes on previous blocks would violate its followin
 
 \subsubsection{Contracts}
 
-There are distributed contracts in Bitcoin transactions for agreement enforcements, which provides another way to formalize and guarantee agreements rather than traditional court system. Examples include Escrow, Micropayment channels and CoinJoin.
+There are distributed contracts in Bitcoin transactions for agreement enforcement, which provides another way to formalize and guarantee agreements rather than traditional court system. Examples include Escrow, Micropayment channels and CoinJoin.
 
 Some of the contracts can be implemented in Bitcoin Script, especially the zero knowledge contingent payments in Bitcoin is achieved with support of bitcoin scripts. However the Red Belly Blockchain doesn't have a robust scripting language like Bitcoin does.
 
@@ -314,14 +314,51 @@ Just as its name suggests, the wallet application should have a basic function a
 
    \item \textbf{Propose Transaction} - The process to propose transaction has one more step compared to the process of balance retrieving. The prerequisite of make a transaction is to get correct UTXOs. Hence, the client will need to get adequate number of identical UTXOs first. After that, the client will existing outputs as the inputs of the newly created transaction, and create corresponding transaction outputs. After the above work is done, the client will wrap transaction inputs, transaction outputs, its own address and the hash of these fields together. The client then will sign the aggregated transaction and propose it to the \textit{participants}. Once more than one thirds of nodes confirmed, the transaction could be regarded as accepted.
 
+   Certainly there should be a way to give the target address for a transaction in the wallet. In our implementation, we use \textit{Base64} encoded string of address bytes to represent an address. The application should be able to decode the address string. Despite of this, a more convenient way through \textit{QR code} is provided. The wallet will be able to display QR code of its account address and scan others' QR code to decode addresses. 
+
    \item \textbf{Secure Storage} - The way to store information and data of secure wallet is another security concern. Though the consensus system Red Belly Blockchain runs can tolerate malicious node, it's still dangerous to users' privacy. Hence, the application will not store any data into any format of files. Instead, we use the encrypted storage of Android OS. In this way, a system level security storage can be guaranteed.
 \end{enumerate}
 
-\subsubsection{Red Belly Blockchain Compatibility}
+\subsubsection{Compatibility and External Libraries of Secure Wallet}
 
+To maximum the reusability and reduce the development cost, several existing libraries can be used in the implementation of Red Belly Blockchain secure wallet.
 
+\textbf{BitcoinJ} - BitcoinJ is a Java library working in Bitcoin protocol originally. Thanks to the similar design of Red Belly Blockchain and Bitcoin, our secure wallet reuse the ECDSA signature scheme's implementation in BitcoinJ. In addition, the BitcoinJ library provides plenty of encoding and decoding methods for easily make account information readable.
+
+\textbf{Bounty Castle} - Bounty Castle is a lightweight cryptography library for Java and C#. Because of the lack of reconstruction from private key and customizable signature methods in BitcoinJ, this project introduce Bounty Castle for key pair generation and message signature. 
+
+\textbf{ZXing} - ZXing is a famous open-source library for multi-format 1D/2D barcode image processing written in Java. Secure wallet uses ZXing Android library to produce QR code, scan and decode it. Most recent Android models should be compatible with this library.
+
+\textbf{GSON} - GSON is a Java library used to convert Java Objects into JSON representation and vice versa. The format of RPC calls between Red Belly Blockchain server and client is in JSON array string. We choose GSON for best conversion performance and reliability.
 
 \subsubsection{Implementation of Red Belly Blockchain Wallet}
+
+During this research, all development are carried on on Android Studio 2.3.3 and Android 3.0.0. The wallet follows the pure material design proposed by Android at the maximum extend.
+
+When user enters the application, the default interface would be wallet activity where the balance of wallet will be displayed to illustrate the most basic function of a wallet function. If there is no account and server addresses set previously, the user may configure settings first through the left-side drawer. As for account, user can either choose to import a existing private key and let the application reconstruct the original pair or generate a new key pair randomly. By whichever means, the keys will be stored securely in local storage.
+
+To make a transaction, users can click the account to enter the balance activity where there is history of transactions and a button entry to pay someone. User can choose to type target address string in or scan QR code. If the user wish to receive money, he can also display his address representation in QR code. One may need to refresh so that the updated UTXOs is securely received.
+
+While the user interface goes as the description, most of network communications, encryption, and encoding/decoding works in separate threads to make sure that no data modification or congestion will occur during the use of wallet. A simple Red Belly Blockchain server-client system model can been seen in Figure\ref{fig:server_client}. As the figure shows, clients communicate with multiple \textit{participants} in Red Belly Blockchain in order to get adequate number of identical confirmations. All these communications are issued as an AsyncTask in Android which will not block or affect any operations in UI thread. The same AsyncTask is performed under both wallet activity and balance activity to send a request to get UTXOs for account of the wallet through RPC protocol. If enough number of identical UTXOs are received, the application will traverse them to calculate balance or aggregate usable outputs to propose a transaction. The same procedure is carried on for transaction while the client is only waiting  for an acceptance confirmation rather than UTXOs, which is another RPC function definitely.
+
+In this case, we can make sure that our wallet works securely even when there exist no more than one thirds of malicious participants in the network according to Red Belly Blockchain's DBFT algorithm. Also, thread safety and storage security in our implementation prevent possible violation during application execution.
+
+\begin{figure}
+    \centering
+    \includegraphics{server_client.png}
+    \caption{RBBC Server-Client System Model}
+    \label{fig:server_client}
+\end{figure}
+
+\subsection{Benchmark on RBBC Wallet}
+
+Four servers on Amazon Web Service in Oregon are set up for testing purpose. Each of them runs a dummy server. The time elapsed for retrieving balance and proposing transaction is recorded to demonstrate the speed performance of the RBBC secure wallet. The number of server client talks with is controlled by the security level within application settings. All other settings are set as default. And all transcations are between two pre-configured account which is created along with genesis block. The result can be seen in Figure\ref{fig:benchmark}.
+
+\begin{figure}
+   \includegraphics{benchmark.png}
+   \caption{RBBC Secure Wallet Benchmark on Speed}
+   \label{fig:benchmark} 
+\end{figure}
 
 \subsection{Zero Knowledge Contingent Payments}
 
@@ -333,7 +370,7 @@ Just as its name suggests, the wallet application should have a basic function a
 % TODO: modify conclusion
 \section{Conclusion}
 
-In this literature review, we can see that unforkable blockchain has a more reliable security guarantee compared to traditional forkable blockchain used in mainstream cryptocurrencies. The need to deploy unforkable blockchain and implement ZKCP-enable protocols onto mobile devices is evident through the literatures to fulfill the gaps between the theoretical discussion and real life application. Deploying ZKCP-enbale unforkable blockchains onto mobile devices will benefit both authorities seeking reliable blockchain solutions and users having trust problems with third-parties.
+
 
 \newpage
 \bibliography{bibliography.bib}
