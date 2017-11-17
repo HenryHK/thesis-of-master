@@ -1,4 +1,4 @@
-\title{Secure unforkable blockchain wallet}
+\title{Secure wallet for an unforkable blockchain}
 %----------------------------------------------------------------------------------------
 %	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
 %----------------------------------------------------------------------------------------
@@ -12,6 +12,8 @@
 \usepackage[colorinlistoftodos]{todonotes}
 \usepackage{float}
 \usepackage{csquotes}
+\usepackage{pdfpages}
+\usepackage{caption}
 
 \begin{document}
 
@@ -34,7 +36,7 @@
 %----------------------------------------------------------------------------------------
 
 \HRule \\[0.6cm]
-{ \huge \bfseries Secure Unforkable Blockchain Wallet}\\[0.4cm] % Title of your document
+{ \huge \bfseries Secure Wallet For An Unforkable Blockchain}\\[0.4cm] % Title of your document
 \HRule \\[1.6cm]
  
 %----------------------------------------------------------------------------------------
@@ -91,10 +93,10 @@ Dr. Vincent \textsc{Gramoli} % Supervisor's Name
 \section{Introduction}
 
 % context part, introduction to cryptocurrencies
-From the time when Block 0 of Bitcoin blockchain, the Genesis Block, is created at 18:15:05 GMT on January 3rd, 2009, the words ``cryptocurrencies'' and ``Blockchain'' become one of the most popular topics in information technology fields. The ``decentralized'' and ``anonymous'' nature of cryptocurrencies overcomes the weakness of traditional \textit{trust-based} electronic payments who relies heavily on trusted third-party financial institutions. It's cryptography-based nature also make sure its security in some sense. The \textit{cryptographic proof-of-work} of bitcoin enables reliable transaction between two parties directly\cite{nakamoto2008bitcoin}. Through almost 10 years development, cryptocurrencies turns out to be a large family and can be accessed via desktop, laptop, or even mobile devices like smart phones.
+From the time when Block 0 of Bitcoin blockchain, the Genesis Block, is created at 18:15:05 GMT on January 3rd, 2009, the words ``cryptocurrencies'' and ``Blockchain'' become one of the most popular topics in information technology fields. The ``decentralized'' and ``anonymous'' nature of cryptocurrencies overcomes the weakness of traditional \textit{trust-based} electronic payments who relies heavily on trusted third-party financial institutions. Its cryptography-based nature also ensures its security in some sense. The \textit{cryptographic proof-of-work} of bitcoin enables reliable transaction between two parties directly\cite{nakamoto2008bitcoin}. Through almost 10 years development, cryptocurrencies turns out to be a large family and can be accessed via desktop, laptop, or even mobile devices like smart phones.
 
 % Problem
-Though bitcoin gives a practical solution on traditional \textit{double spending} problem in digital currencies, this doesn't mean that it is secure in all aspects. One possible issue is bitcoin blockchain's forkable feature. Actually, other cryptocurrencies allowing forkable chains all suffer from the very same issue. It will become a problem for wallet users if the nodes they are contacting is hijacked. In this sense, unfokable blockchain is proven to overcome this shortcommings\cite{DBLP:journals/corr/CrainGLR17}. To consider in another aspect, another possible solution to secure transaction is to adopt mechanism like \textit{zero knowledge contingent payment} which are released if and only if some knowledge is disclosed by the payee and to do this in a trustless manner where neither the payer or payee can cheat\cite{wiki2011zero}\cite{sasson2014zerocash}. Whilst there are several theoretical discussion and practices in a variety of contexts, this paper will concentrate on how to develop a secure cryptocurrency wallet on the basis of unforkable blockchain and enable secure trades between parties by the help of zero knowledge contingent payments. 
+Though bitcoin gives a practical solution on traditional \textit{double spending} problem in digital currencies, this doesn't mean that it is secure in all aspects. One possible issue is bitcoin blockchain's forkable feature. Actually, other cryptocurrencies allowing forkable chains all suffer from the very same issue. It will become a problem for wallet users if the nodes they are contacting is hijacked. In this sense, unforkable blockchain is proven to overcome this shortcommings\cite{DBLP:journals/corr/CrainGLR17}. To consider in another aspect, another possible solution to secure transaction is to adopt mechanism like \textit{zero knowledge contingent payment} which are released if and only if some knowledge is disclosed by the payee and to do this in a trustless manner where neither the payer or payee can cheat\cite{wiki2011zero}\cite{sasson2014zerocash}. Whilst there are several theoretical discussion and practices in a variety of contexts, this paper will concentrate on how to develop a secure cryptocurrency wallet on the basis of unforkable blockchain and enable secure trades between parties by the help of zero knowledge contingent payments. 
 
 % Contributions
 In this project, I intend to contribute in two separated directions: one is to develop a secure mobile client for Red Belly Blockchain - a practice to deploy unforkable blockchain onto modern mobile devices; the other is to explore the way to enable zero knowledge contingent payments within Red Belly Blockchain network. The primary goal of this research is to examine the feasibility of real-life secure application for unforkable blockchain like Red Belly Blockchain.
@@ -118,10 +120,11 @@ Blockchain is the way how Bitcoin keeps its public ledger within its peer-to-pee
 Each full node in the Bitcoin network keeps a full copy of the blockchain, in which all blocks validated by this particular is stored. When several nodes within the network independently arrive at identical blockchains, they are considered to be in \textit{consensus}. As its name suggests, a blockchain is a digital chain of blocks, where a timestamp, a nonce, and a Merkle Tree is stored.  The blocks are chained cryptographically using hash. In detail, each block contains the hash of its previous block ,finally leading to the Genesis Block. Any modification on blocks in the chain would violates all subsequent hashes, which is vital for consistency of the ledger. Figure \ref{fig:blockchain} shows part of a blockchain. 
 
 % blockchain figure here
+\newpage
 \begin{figure}
     \centering
-    \includegraphics{blockchain.png}
-    \caption{Blockchain}
+    \includegraphics[scale=0.9]{blockchain.png}
+    \caption{Blockchain from \textit{https://steemit.com/bitcoin/@cryptovest/bitcoin-and-blockchain-what-math-puzzle-do-miners-actually-solve}}
     \label{fig:blockchain}
 \end{figure}
 
@@ -165,7 +168,7 @@ To achieve a balance attack within the blockchain network, the attacker should d
 
 \begin{figure}
     \centering
-    \includegraphics{balance_attack.png}
+    \includegraphics[scale=0.5]{balance_attack.png}
     \caption{Balance Attack}
     \label{fig:balance_attack}
 \end{figure}
@@ -237,7 +240,7 @@ However, all implemented ZKCP protocols now are based on scripting language in t
 
 From the above review of cryptocurrencies and blockchain contexts, one can conclude that the blockchain technology adopted by cryptocurrencies nowadays has potential risks regarding to its forkable nature. This also influence the usage of current cryptocurrency wallet - there is no guarantee that the proposed transaction (or retrieved balance) from wallet is securely handled by the server if it contacts only one single machine.
 
-Hence, the motivation of this research comes from this gap. The aim of this research is to develop a wallet making both transaction proposing and balance retrieving reliable and correct. During the first part of this research, a secure wallet will be developed, perfoming in a Red Belly Blockchain way to avoid possible attacks targeting at fork chains. The Zero Knowledge Contingent Proof will try to add another guarantee so that either party within a transaction cannot cheat for its own benefits.
+Hence, the motivation of this research comes from this gap. The aim of this research is to develop a wallet making both transaction proposing and balance retrieving reliable and correct. During the first part of this research, a secure wallet will be developed, performing in a Red Belly Blockchain way to avoid possible attacks targeting at fork chains. The Zero Knowledge Contingent Proof will try to add another guarantee so that either party within a transaction cannot cheat for its own benefits.
 
 \section{Methodologies and Proposed Contributions}
 
@@ -254,7 +257,7 @@ In Red Belly Blockchain, all nodes are communicated through TCP+SSL. Nodes in th
 
 To develop a secure wallet, a secure protocol between server and clients is required. In this project, TCP and SSL is chosen to be the techniques for communications. I intent to implement \textit{remote procedure call} for Red Belly Blockchain nodes first so that further functions can be achieved on client side. 
 
-Regarding to the client, I intend to implement secure wallet basic balance and transaction request functions complying with the same DBFT algorithm as Red Belly Blockchain nodes. In this sense, users of wallet can make sure that the balance and transaction are correctly obtained or proposed respectively.
+Regarding to the client, I intend to implement secure wallet basic balance and transaction request functions complying with the same DBFT algorithm as Red Belly Blockchain nodes. In this sense, users of wallet can ensure that the balance and transaction are correctly obtained or proposed respectively.
 
 In addition to server enhancement and secure wallet development, the pursuit of security also motivated this research to develop a Zero Knowledge Contingent Payments model for RBBC so that no party can cheats within such a `contract'. The ZKCP implementation in RBBC is not like the one in Bitcoin who has scripts supporting this function while RBBC doesn't have.
 
@@ -288,8 +291,8 @@ UTXOs in Red Belly Blockchain will be serialized into bytes during communication
 
 \begin{figure}
     \centering
-    \includegraphics{utxo_table.png}
-    \caption{UTXO Table Structure}
+    \includegraphics[scale=0.6]{utxo_table.png}
+    \caption{UTXO Table Structure from \textit{Red Belly Blockchain Wiki}}
     \label{fig:utxo_table}
 \end{figure}
 
@@ -300,7 +303,7 @@ UTXOs in Red Belly Blockchain will be serialized into bytes during communication
        \item \textit{Transaction Output} serves as the transfer of coin. It contains the number of coins, the receiver's account address, and the payer's public key as its script. The output will give the money to the address specified. Meanwhile, an entry in UTXO table will be created to this output which makes sure that these coins can be used for another transaction.
 \end{enumerate}
 
-In addition to lists of \textit{Transcation Input}s and \textit{Transaction Output}s, the address that the transaction is from as well the hash of the other parts of transaction is included.\\
+In addition to lists of \textit{Transaction Input}s and \textit{Transaction Output}s, the address that the transaction is from as well the hash of the other parts of transaction is included.\\
 
 \textbf{Description of Red Belly Blockchain Transaction Syntax}
 
@@ -348,30 +351,30 @@ When user enters the application, the default interface would be wallet activity
 
 To make a transaction, users can click the account to enter the balance activity where there is history of transactions and a button entry to pay someone. User can choose to type target address string in or scan QR code. If the user wish to receive money, he can also display his address representation in QR code. One may need to refresh so that the updated UTXOs is securely received.
 
-While the user interface goes as the description, most of network communications, encryption, and encoding/decoding works in separate threads to make sure that no data modification or congestion will occur during the use of wallet. A simple Red Belly Blockchain server-client system model can been seen in Figure\ref{fig:server_client}. As the figure shows, clients communicate with multiple \textit{participants} in Red Belly Blockchain in order to get adequate number of identical confirmations. All these communications are issued as an AsyncTask in Android which will not block or affect any operations in UI thread. The same AsyncTask is performed under both wallet activity and balance activity to send a request to get UTXOs for account of the wallet through RPC protocol. If enough number of identical UTXOs are received, the application will traverse them to calculate balance or aggregate usable outputs to propose a transaction. The same procedure is carried on for transaction while the client is only waiting  for an acceptance confirmation rather than UTXOs, which is another RPC function definitely.
+While the user interface goes as the description, most of network communications, encryption, and encoding/decoding works in separate threads to ensure that no data modification or congestion will occur during the use of wallet. A simple Red Belly Blockchain server-client system model can been seen in Figure\ref{fig:server_client}. As the figure shows, clients communicate with multiple \textit{participants} in Red Belly Blockchain in order to get adequate number of identical confirmations. All these communications are issued as an AsyncTask in Android which will not block or affect any operations in UI thread. The same AsyncTask is performed under both wallet activity and balance activity to send a request to get UTXOs for account of the wallet through RPC protocol. If enough number of identical UTXOs are received, the application will traverse them to calculate balance or aggregate usable outputs to propose a transaction. The same procedure is carried on for transaction while the client is only waiting  for an acceptance confirmation rather than UTXOs, which is another RPC function definitely.
 
-In this case, we can make sure that our wallet works securely even when there exist no more than one thirds of malicious participants in the network according to Red Belly Blockchain's DBFT algorithm. Also, thread safety and storage security in our implementation prevent possible violation during application execution.
+In this case, we can ensure that our wallet works securely even when there exist no more than one thirds of malicious participants in the network according to Red Belly Blockchain's DBFT algorithm. Also, thread safety and storage security in our implementation prevent possible violation during application execution.
 
 \begin{figure}
     \centering
-    \includegraphics{server_client.png}
+    \includegraphics[scale=0.5]{server_client.png}
     \caption{RBBC Server-Client System Model}
     \label{fig:server_client}
 \end{figure}
 
 \subsubsection{Benchmark on RBBC Wallet}
 
-Four servers on Amazon Web Service in Oregon are set up for testing purpose. Each of them runs a dummy server. The time elapsed for retrieving balance and proposing transaction is recorded to demonstrate the speed performance of the RBBC secure wallet. The number of server client talks with is controlled by the security level within application settings. All other settings are set as default. And all transcations are between two pre-configured account which is created along with genesis block. The result can be seen in Figure\ref{fig:benchmark}.
+Four servers on Amazon Web Service in Oregon are set up for testing purpose. Each of them runs a dummy server. The time elapsed for retrieving balance and proposing transaction is recorded to demonstrate the speed performance of the RBBC secure wallet. The number of server client talks with is controlled by the security level within application settings. All other settings are set as default. And all transactions are between two pre-configured account which is created along with genesis block. The result can be seen in Figure\ref{fig:benchmark}.
 
 \begin{figure}
-   \includegraphics{benchmark.png}
+   \includegraphics[scale=0.8]{benchmark.png}
    \caption{RBBC Secure Wallet Benchmark on Speed}
    \label{fig:benchmark} 
 \end{figure}
 
 \subsection{Zero Knowledge Contingent Payments}
 
-The first Zero Knowledge Contingent Payments of Bitcoin is successfully made in 2016. The initial motivation of this exploration is to proove the robustness and capability of Bitcoin Scripts. Things are different in Red Belly Blockchain who has no scripts. Hence, this paper aims to find a proper model to fit \textit{Zero Knowledge Contingent Payments} into Red Belly Blockchain, as well as the implementation of secure wallet.
+The first Zero Knowledge Contingent Payments of Bitcoin is successfully made in 2016. The initial motivation of this exploration is to prove the robustness and capability of Bitcoin Scripts. Things are different in Red Belly Blockchain who has no scripts. Hence, this paper aims to find a proper model to fit \textit{Zero Knowledge Contingent Payments} into Red Belly Blockchain, as well as the implementation of secure wallet.
 
 \subsubsection{Preliminaries}
 \label{sec:zkcp_preliminaries}
@@ -380,7 +383,7 @@ The first Zero Knowledge Contingent Payments of Bitcoin is successfully made in 
 
 \textbf{Secret-Shared ECDSA Secret Key}
 
-Supposing there are two parties, namely buyer and seller, under our scenerio, they fix an elliptic curve over $(\mathbb{G},O,g,+)$ over a field ${\mathbb{Z}_p}$. According to scheme of ECDSA, the secret key is a private integer $d\in{\mathbb{Z}_{\mid G \mid}}$. In our case, both buyer and seller input a security parameter and they both know the public key $pk = d \cdot g$ where $d$ is the secret. Besides, the Seller and Buyer know ${d_B}, {d_S} \in {\mathbb{Z}_{\mid G \mid}}$ where ${d_S} \cdot {d_B} = d (mod {\mid G \mid})$. \cite{goldfeder2015securing} \cite{herzberg1997method} The share protocol uses a commitment scheme in which eller make a commit $Commit({D_S})$ in exchange for buyer's secret key. If buyer's key is correct, seller will open his commitment afterwards. \\
+Supposing there are two parties, namely buyer and seller, under our scenario, they fix an elliptic curve over $(\mathbb{G},O,g,+)$ over a field ${\mathbb{Z}_p}$. According to scheme of ECDSA, the secret key is a private integer $d\in{\mathbb{Z}_{\mid G \mid}}$. In our case, both buyer and seller input a security parameter and they both know the public key $pk = d \cdot g$ where $d$ is the secret. Besides, the Seller and Buyer know ${d_B}, {d_S} \in {\mathbb{Z}_{\mid G \mid}}$ where ${d_S} \cdot {d_B} = d (mod {\mid G \mid})$. \cite{goldfeder2015securing} \cite{herzberg1997method} The share protocol uses a commitment scheme in which seller make a commit $Commit({D_S})$ in exchange for buyer's secret key. If buyer's key is correct, seller will open his commitment afterwards. \\
 
 \textbf{Paillier Cryptosystem}
 
@@ -388,7 +391,7 @@ Paillier cryptosystem is a probabilistic asymmetric algorithm for public key cry
 
 \textbf{Time-Locked Commitment}
 
-Zero Knowledge Contingent Payments in Red Belly Blockchain relies on Time-Locked Commitment schemes. To describe informally, the \textit{Time-Locked Commitment} is no more than a standard $(Commit, Open)$ protocol except that it introduce a \textit{force openning} mechanism where the receiver can open the commitment consuming a significant computational time. Though the time to \textit{force open} a commitment differs from receivers, especially when taking mobile devices into accounts, we assume that this difference limited due to real-life parallelized efficiency.
+Zero Knowledge Contingent Payments in Red Belly Blockchain relies on Time-Locked Commitment schemes. To describe informally, the \textit{Time-Locked Commitment} is no more than a standard $(Commit, Open)$ protocol except that it introduce a \textit{force opening} mechanism where the receiver can open the commitment consuming a significant computational time. Though the time to \textit{force open} a commitment differs from receivers, especially when taking mobile devices into accounts, we assume that this difference limited due to real-life efficiency.
 
 \textbf{Cut-and-Choose}
 
@@ -403,8 +406,8 @@ The basic flow works like Figure \ref{fig:secret_share}.
 
 \begin{figure}
     \centering
-    \includegraphics{secret_share.png}
-    \caption{secret-shared key generation}
+    \includegraphics[scale=0.5]{secret_share.png}
+    \caption{secret-shared key generation from \cite{Banasik2016}}
     \label{fig:secret_share}
 \end{figure}
 
@@ -413,15 +416,15 @@ The basic flow works like Figure \ref{fig:secret_share}.
 
 The Unique Signature Generation Protocol uses protocol that generates secret-shared key stated in above Section \ref{sec:kgen}. Before the execution of Unique Signature Generation Protocol, we assumes that two parties run the \textit{secret-shared key generation protocol} $a$ times.
 
-Using the results from previous protocol, buyer and seller could sign a message $m$ using the private key. At the first step of Unique Signature Generation Protocol, they jointly create a signing randomness $R$. Then the seller creates a new key using Paillier cryptosystem and sends the encryted ${d_S}$ (the secret share of seller regarding to secret key $d$) to buyer. Buyer will continue to calculate the remaining part of the encryption of the unfinished signature and return the result to seller. At this stage, the seller is able to decrupts it and finally complete the signature $\sigma$. To make sure the trade remains unharmful if the seller is malicious, same commitment technique is applied here as well. Seller need to make a commitment $Commit({\sigma})$ of his signature $\sigma$ and a time-locked commitment of his secret-shared secret key ${d_S}$ so that buyer can \textit{force open} the commitment if the time of contract expired. 
+Using the results from previous protocol, buyer and seller could sign a message $m$ using the private key. At the first step of Unique Signature Generation Protocol, they jointly create a signing randomness $R$. Then the seller creates a new key using Paillier cryptosystem and sends the encrypted ${d_S}$ (the secret share of seller regarding to secret key $d$) to buyer. Buyer will continue to calculate the remaining part of the encryption of the unfinished signature and return the result to seller. At this stage, the seller is able to decrypts it and finally complete the signature $\sigma$. To ensure the trade remains unharmful if the seller is malicious, same commitment technique is applied here as well. Seller need to make a commitment $Commit({\sigma})$ of his signature $\sigma$ and a time-locked commitment of his secret-shared secret key ${d_S}$ so that buyer can \textit{force open} the commitment if the time of contract expired. 
 
 \subsubsection{SellWitness Protocol}
 
-To construct the final protocol to sell a witness as its name suggests, buyer need to create two transaction - ${T_1}$ and ${T_2}$. In our case, ${T_1}$ contains the money that buyer needs to pay and this will output to the address of the secret-shared key address or to a multisig escrow `t out of 2t-1' using the generated publick key $t$ times and his own public key $t-1$ times. However, buyer will not reveal this until he is convinced by the seller. ${T_2}$ is a transaction redeeming ${T_1}$ to seller because the hash of ${T_1}$ can be known without really broadcasting it). The content of transaction ${T_2}$, named as $m$, is the message that needs to be signed later.
+To construct the final protocol to sell a witness as its name suggests, buyer need to create two transaction - ${T_1}$ and ${T_2}$. In our case, ${T_1}$ contains the money that buyer needs to pay and this will output to the address of the secret-shared key address or to a multisig escrow `t out of 2t-1' using the generated public key $t$ times and his own public key $t-1$ times. However, buyer will not reveal this until he is convinced by the seller. ${T_2}$ is a transaction redeeming ${T_1}$ to seller because the hash of ${T_1}$ can be known without really broadcasting it). The content of transaction ${T_2}$, named as $m$, is the message that needs to be signed later.
 
 To simplify the description, this paper assumes $t=1$ here. At current stage, ${T_2}$ is commonly known to both parties but seller needs ${T_1}$ to spend ${T_2}$ while ${T_1}$ is private to buyer. Meanwhile buyer need learns the signature $\sigma$ of ${T_2}$ so that he can know the secret key that seller committed. Or after some time, the buyer may \textit{force open} seller's $Commit({d_S})$.
 
-Here the \textit{cut-and-choose} will be used again. Supposing there exist a zero knowledge proof of knowledge $\mathcolon{F}$ such that it has a function to extract witness satisfying ${Extract_F}(Buyer, {Challenge_1}, {Answer_1}, {Challenge_2}, {Answer_2}) = x$ and $f(x) = true$ if only anwsers are all correct and challenges are not the same. 
+Here the \textit{cut-and-choose} will be used again. Supposing there exist a zero knowledge proof of knowledge $\mathcolon{F}$ such that it has a function to extract witness satisfying ${Extract_F}(Buyer, {Challenge_1}, {Answer_1}, {Challenge_2}, {Answer_2}) = x$ and $f(x) = true$ if only answers are all correct and challenges are not the same. 
 
 Buyer will create multiple challenge pairs, ${({c_1}, {c_2})_i}$ respectively. And Seller calculates responses to each of them and commit the result encryption ${r_1}$ and ${r_2}$ using his asymmetric cyphers (the same secret keys used to sign ${T_2}$). Then Buyer selects certain number of challenge pairs and challenge Seller using a random one within each pair. The seller opens the corresponding commitments of secret key in return. Once buyer verifies all these commitments without error. The seller will open all commitments of encrypted answers to Buyer’s challenges. To be noticed, the commitment of secret key of seller is not revealed yet.
 
@@ -438,7 +441,7 @@ To evaluate the results gained from secure wallet, it's more proper to have a lo
 
 \subsubsection{Performance of Secure Wallet}
 
-Definitely, the number of test samples is not adequate right now due to time issues. We can still conclude that the speed of transcation which indeed the time to derive a commonly agreed UTXOs is satasfying considering that the client is communicating with multiple remote servers across ocean. This proves the feasibility to deploy Red Belly Blockchain into real life applications, not limited to apllication like wallet. 
+Definitely, the number of test samples is not adequate right now due to time issues. We can still conclude that the speed of transaction which indeed the time to derive a commonly agreed UTXOs is satisfying considering that the client is communicating with multiple remote servers across ocean. This proves the feasibility to deploy Red Belly Blockchain into real life applications, not limited to application like wallet. 
 
 To be noticed, \textbf{scalability} is another advantage shown in our results. Due to the `independent threads' implementation of secure wallet, the number of \textit{participants} we are communicating with has few influence on the time elapsed to retrieve a correct response.
 
@@ -451,7 +454,7 @@ As for security concern, this research mainly concentrates on communications and
 \subsection{Zero Knowledge Contingent Payments in Red Belly Blockchain}
 \label{sec:zkcp_discussion}
 
-The Zero Knowledge Contingent Payments model in Red Belly Blockchain is rather a model or future work to go. The implementation of it is based on common safety assumptions of well-known techniques mentioned in Section \ref{sec:zkcp_preliminaries}. Hence, the proof is well addressed under real life applications. In addition to this, because of the lack of scripts in Red Belly Blockchain, we have to adopt the \textit{cut-and-choose} technique which requires a lot of redundancies. The time complexity of it can be simply co nclude as $O(tn)$ where we apply \textit{cut-and-choose} twice.
+The Zero Knowledge Contingent Payments model in Red Belly Blockchain is rather a model or future work to go. The implementation of it is based on common safety assumptions of well-known techniques mentioned in Section \ref{sec:zkcp_preliminaries}. Hence, the proof is well addressed under real life applications. In addition to this, because of the lack of scripts in Red Belly Blockchain, we have to adopt the \textit{cut-and-choose} technique which requires a lot of redundancies. The time complexity of it can be simply conclude as $O(tn)$ where we apply \textit{cut-and-choose} twice.
 
 
 \section{Future Work}
@@ -468,7 +471,7 @@ As the discussion in Section \ref{sec:zkcp_discussion}, the ZKCP model requires 
 
 \section{Conclusion}
 
-In conclusion, the risks behind current cryptocurrencies technology motivates this research to explore a way to ensure security in both blockchain levels and contracts levels, referring to the development of secure wallet and the design of zero knowledge contingent payments respectively in our case. By the help of Red Belly Blockchain with Democratic Byzantine Consensus System running, the first version of secure wallet provides a satisfying performance under basic tests. The ZKCP model also shows a potential to secure transaction with less support from system-level comapred to Bitcoin Scripts or Ethereum's Smart Contracts. Although there is no build or benchmarks at current stage, the capability to involve a mechanism ensuring no parties can cheat within a transaction is of vital importance considering the security issue that we emphasize most in this research.
+In conclusion, the risks behind current cryptocurrencies technology motivates this research to explore a way to ensure security in both blockchain levels and contracts levels, referring to the development of secure wallet and the design of zero knowledge contingent payments respectively in our case. By the help of Red Belly Blockchain with Democratic Byzantine Consensus System running, the first version of secure wallet provides a satisfying performance under basic tests. The ZKCP model also shows a potential to secure transaction with less support from system-level compared to Bitcoin Scripts or Ethereum's Smart Contracts. Although there is no build or benchmarks at current stage, the capability to involve a mechanism ensuring no parties can cheat within a transaction is of vital importance considering the security issue that we emphasize most in this research.
 
 The application or future of this research can goes into a wider range not limited to a secure wallet on Android or a draft model of the \textit{zero knowledge contingent payments}. Further research can be conducted in order to find out the better usage or improvements for a secure blockchain as our pursuit.
 
